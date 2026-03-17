@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo \"EXIT: $?\")",
+      "mcp__plugin_compound-engineering_context7__resolve-library-id",
+      "WebSearch",
+      "mcp__plugin_compound-engineering_context7__query-docs",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:microsoft.github.io)",
+      "WebFetch(domain:download.eclipse.org)",
+      "WebFetch(domain:nearform.com)",
+      "WebFetch(domain:snyk.io)",
+      "WebFetch(domain:www.npmjs.com)",
+      "Bash(npm --version)",
+      "Bash(java:*)",
+      "Bash(npm info:*)",
+      "Bash(npm install:*)",
+      "Bash(npx tsc:*)",
+      "Bash(node -e \"const rpc = require\\(''vscode-jsonrpc''\\); console.log\\(Object.keys\\(rpc\\).filter\\(k => k.includes\\(''Stream''\\) || k.includes\\(''create''\\)\\).join\\(''\\\\n''\\)\\)\")",
+      "Bash(node -e \"const p = require\\(''vscode-languageserver-protocol''\\); console.log\\(Object.keys\\(p\\).filter\\(k => k.includes\\(''Stream''\\) || k.includes\\(''createMessage''\\)\\).join\\(''\\\\n''\\)\\)\")",
+      "Bash(node -e \"const p = require\\(''vscode-languageserver-protocol''\\); console.log\\(typeof p.StreamMessageReader, typeof p.StreamMessageWriter, typeof p.createProtocolConnection, typeof p.createMessageConnection\\)\")",
+      "Bash(ls dist/*.js dist/tools/*.js dist/lsp/*.js dist/jdtls/*.js dist/utils/*.js)",
+      "Bash(timeout 3 node dist/index.js)",
+      "Bash(npm run:*)",
+      "Bash(gh auth:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
+    ]
+  }
+}

@@ -78,17 +78,17 @@ export async function ensureJdtls(): Promise<void> {
 
   // Fetch latest.txt to get exact filename
   const latestUrl = `${JDTLS_MIRROR_BASE}/latest.txt`;
-  let filename: string;
+  let tarFilename: string;
   try {
     const latestContent = await httpGet(latestUrl);
-    filename = latestContent.trim();
+    tarFilename = latestContent.trim();
   } catch {
     // Fallback: construct filename directly
-    filename = `jdt-language-server-${JDTLS_VERSION}`;
+    tarFilename = `jdt-language-server-${JDTLS_VERSION}.tar.gz`;
     log("Could not fetch latest.txt, using version-based filename.");
   }
 
-  const tarUrl = `${JDTLS_MIRROR_BASE}/${filename}.tar.gz`;
+  const tarUrl = `${JDTLS_MIRROR_BASE}/${tarFilename}`;
 
   // Create install directory
   fs.mkdirSync(JDTLS_HOME, { recursive: true });
