@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "java-lsp": {
+      "command": "node",
+      "args": ["dist/index.js"]
+    }
+  }
+}
