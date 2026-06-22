@@ -72,6 +72,21 @@ export class JdtLsClient {
     log(`Starting JDT LS for project: ${this.projectRoot}`);
     debug(`Data dir: ${this.dataDir}`);
 
+    // Optional Lombok support: when LOMBOK_JAR points at a readable lombok agent
+    // jar, load it as a -javaagent so JDT LS sees Lombok-generated members
+    // (getters/setters, @Slf4j `log`, builders, etc.). Without it, Lombok-heavy
+    // files produce spurious "cannot be resolved" / "undefined method" diagnostics.
+    const lombokArgs: string[] = [];
+    const lombokJar = process.env.LOMBOK_JAR;
+    if (lombokJar) {
+      if (fs.existsSync(lombokJar)) {
+        lombokArgs.push(`-javaagent:${lombokJar}`);
+        log(`Lombok enabled via ${lombokJar}`);
+      } else {
+        logError(`LOMBOK_JAR set but file not found: ${lombokJar}`);
+      }
+    }
+
     this.process = cp.spawn(javaPath, [
       "-Declipse.application=org.eclipse.jdt.ls.core.id1",
       "-Dosgi.bundles.defaultStartLevel=4",
@@ -80,6 +95,7 @@ export class JdtLsClient {
       "--add-modules=ALL-SYSTEM",
       "--add-opens", "java.base/java.util=ALL-UNNAMED",
       "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+      ...lombokArgs,
       "-jar", launcherJar,
       "-configuration", configDir,
       "-data", this.dataDir,
